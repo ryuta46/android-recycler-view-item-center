@@ -21,6 +21,11 @@ class MainActivity : AppCompatActivity() {
         val recyclerView: RecyclerView = findViewById(R.id.recyclerView)
         recyclerView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
         recyclerView.adapter = MyAdapter(this, 5)
+
+        // To make item center
+        val snapHelper = LinearSnapHelper()
+        snapHelper.attachToRecyclerView(recyclerView)
+
     }
 
     class MyAdapter(private val context: Context, private val itemCount: Int) : RecyclerView.Adapter<MyAdapter.ViewHolder>() {
