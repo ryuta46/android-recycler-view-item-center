@@ -1,6 +1,7 @@
 package com.ttechsoft.recyclerviewitemcenter
 
 import android.content.Context
+import android.graphics.Rect
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
@@ -25,6 +26,22 @@ class MainActivity : AppCompatActivity() {
         // To make item center
         val snapHelper = LinearSnapHelper()
         snapHelper.attachToRecyclerView(recyclerView)
+
+        // Force to center even if the item is first or last.
+        recyclerView.addItemDecoration(object: RecyclerView.ItemDecoration() {
+            override fun getItemOffsets(outRect: Rect, view: View, parent: RecyclerView, state: RecyclerView.State) {
+                val edgeMargin = (parent.width - view.layoutParams.width) / 2
+
+                val position = parent.getChildAdapterPosition(view)
+                if (position == 0) {
+                    outRect.left = edgeMargin
+                }
+                if (position == state.itemCount - 1) {
+                    outRect.right = edgeMargin
+                }
+            }
+        })
+
 
     }
 
